@@ -11,21 +11,39 @@
     <link rel="stylesheet" href="//at.alicdn.com/t/font_3350679_cda191pmwhi.css">
 </head>
 <body>
-    <div class="page start"></div>
+    <div class="page start">
+        <h1>2022假期调休日历</h1>
+        <h2>（仅列出假期前后日期）</h2>
+        <ul></ul>        
+    </div>
     <div class="page main">
-        <div class="holiday"></div>
-        <div class="down icon iconfont icon-zuojiantou"></div>
-        <div class="up icon iconfont icon-youjiantou"></div>   
-        <div class="date">
+        <div class="title">
+            <h1></h1>
+            <div class="last icon iconfont icon-zuojiantou"></div>
+            <div class="next icon iconfont icon-youjiantou"></div> 
         </div>
-        <button class="animate">查看实际休息天数</button>
-        <button class="back">返回首页</button>
+        <div class="weekends">
+            <h3 style="color:#999">日</h3>
+            <h3>一</h3>
+            <h3>二</h3>
+            <h3>三</h3>
+            <h3>四</h3>
+            <h3>五</h3>
+            <h3 style="color:#999">六</h3>
+        </div>  
+        <div class="date"></div>
+        <div class="bottom">
+            <div class="animate">查看实际休息天数</div>
+            <div class="back">返回首页</div>
+        </div>
+       
         <!-- <div class="desc">
             <h3>成语：朝三暮四</h3>
             有一年，村子里闹了饥荒，狙公不得不缩减猴子的食粮，但他怕猴子们不高兴，就先和猴子们商量，他说：“从明天开始，我每天早上给你们三颗果子，晚上再给你们四颗，好吗？”猴子们听说他们的食粮减少，都咧嘴露牙的站了起来，表现出非常生气的样子。狙公看了，马上就改口说：“这样好了，我每天早上给你们四颗，晚上再给你们三颗，够吃了吧！”猴子们听说早上己经从三颗变成了四颗，以为食粮已经增加了，都高兴的一起趴在地上，不再闹了。
         </div> -->
     </div>
     <script>
+        
         // var dateList = []
         $.ajax({
             url:"js/calender.json",
@@ -33,9 +51,65 @@
                 console.log(res, res.date)
                 res.forEach(item => {
                     // console.log(item)
-                    
+                    $('ul').append(`<li>${item.holiday}</li>`)
                 });
-                // $('.start')
+                $('ul').click(function(event){
+                    // console.log(event)
+                    if (event.target.tagName == 'LI'){
+                        res.forEach(item => {
+                            if(event.target.innerHTML == item.holiday){
+                                // console.log(item.holiday)
+
+                                $('.main').css({
+                                    zIndex:50,
+                                    opacity:1
+                                })
+                                $('.start').css({
+                                    zIndex:0,
+                                    opacity:0
+                                })
+                                // console.log($('.title h1'))
+                                $('.title h1').html(item.holiday)
+                                for(let i of item.date){
+                                    // console.log(i)
+                                    
+                                    $('.date').append(`<h3>${i}</h3>`)
+                                }
+
+                                
+                                    
+                            }
+                        });  
+                        // console.log(!event.target.nextSibling)
+                        if(!event.target.nextSibling){
+                            $('.next').css({display:'none'})   
+                        }else{
+                            $('.next').css({display:'block'})
+                        }
+                        if(!event.target.previousSibling){
+                            $('.last').css({display:'none'})   
+                        }else{
+                            $('.last').css({display:'block'})
+                        }
+                    }
+                })
+                    
+                    
+                $('.back').click(function(){
+                    $('.start').css({
+                        zIndex:50,
+                        opacity:1
+                    })
+                    $('.main').css({
+                        zIndex:0,
+                        opacity:0
+                    })
+                    $('.date').empty()
+                })
+               
+                $('.next').click(function(){
+                    
+                })
             }
         })
     </script>   

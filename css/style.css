@@ -16,9 +16,101 @@
 .start{
     z-index: 10;
     background-color: pink;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: all .6s;
+    /* display: none; */
+}
+.start h1,.title h1{
+    font-size: 0.6rem;
+    
+}
+.start h2{
+    font-size: 0.4rem;
+}
+.start ul{
+    font-size: 0.4rem; 
+    margin: 1rem 0;
+    text-align: center;
+}
+.start ul li{
+    list-style: none;
+    margin: .6rem 0;
+    color: purple;
 }
 .main{
     background-color:lightgreen;
-
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: all .6s;
     /* background-size: 100% 100%; */
+}
+.main .title{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+   
+}
+.title h1{
+    margin-right: 3rem;
+    letter-spacing: 0.1rem;
+    color: lightslategray;
+}
+.title .icon{
+    font-size: 0.6rem;
+}
+.title .icon-youjiantou{
+    font-size: 0.69rem;
+}
+.main .weekends{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 0.4rem;
+}
+.weekends h3,.date h3{
+    font-size: 0.4rem;
+    color: #666;
+}
+.date h3:nth-child(7n),.date h3:nth-child(7n-6){
+    color:#999;
+}
+.main .date{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.date h3{
+    width: 1.05rem;
+    text-align: center;
+    margin-bottom: 0.4rem;
+}
+.main .bottom{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.main .bottom div{
+    font-size: 0.3rem;
+    border: 1px solid #999;
+    color: #333;
+    border-radius: 1rem;
+    background-color: skyblue;
+}
+.main .bottom .animate{
+    width: 4rem;
+    text-align: center;
+}
+.main .bottom .back{
+    width: 2rem;
+    text-align: center;
 }
