@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/lcRem.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery-3.6.0.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_3350679_cda191pmwhi.css">
+</head>
+<body>
+    <div class="page start"></div>
+    <div class="page main">
+        <div class="holiday"></div>
+        <div class="down icon iconfont icon-zuojiantou"></div>
+        <div class="up icon iconfont icon-youjiantou"></div>   
+        <div class="date">
+        </div>
+        <button class="animate">查看实际休息天数</button>
+        <button class="back">返回首页</button>
+        <!-- <div class="desc">
+            <h3>成语：朝三暮四</h3>
+            有一年，村子里闹了饥荒，狙公不得不缩减猴子的食粮，但他怕猴子们不高兴，就先和猴子们商量，他说：“从明天开始，我每天早上给你们三颗果子，晚上再给你们四颗，好吗？”猴子们听说他们的食粮减少，都咧嘴露牙的站了起来，表现出非常生气的样子。狙公看了，马上就改口说：“这样好了，我每天早上给你们四颗，晚上再给你们三颗，够吃了吧！”猴子们听说早上己经从三颗变成了四颗，以为食粮已经增加了，都高兴的一起趴在地上，不再闹了。
+        </div> -->
+    </div>
+    <script>
+        // var dateList = []
+        $.ajax({
+            url:"js/calender.json",
+            success:function(res){
+                console.log(res, res.date)
+                res.forEach(item => {
+                    // console.log(item)
+                    
+                });
+                // $('.start')
+            }
+        })
+    </script>   
+</body>
+</html>

@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.page{
+    width: 7.5rem;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+
+}
+.start{
+    z-index: 10;
+    background-color: pink;
+}
+.main{
+    background-color:lightgreen;
+
+    /* background-size: 100% 100%; */
+}
