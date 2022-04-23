@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/jquery-3.6.0.js"></script>
+</head>
+<body>
+    <h3>1</h3>
+    <h3>2</h3>
+    <h3>3</h3>
+    <h3>4</h3>
+    <script>
+        var left = 190
+        var right = 170
+        var X=left-right
+        for(let n =0;n<2;n++){
+            $('h3:nth-child(n)').css({
+                "color":"#999"
+            })
+        }
+        console.log(left-right)
+        $('h3:nth-child(3)').css({
+            'transform':`translateX(${X}px)`,
+        })
+        
+    </script>
+</body>
+</html>

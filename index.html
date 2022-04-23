@@ -19,8 +19,7 @@
     <div class="page main">
         <div class="title">
             <h1></h1>
-            <div class="last icon iconfont icon-zuojiantou"></div>
-            <div class="next icon iconfont icon-youjiantou"></div> 
+            <h2></h2>
         </div>
         <div class="weekends">
             <h3 style="color:#999">日</h3>
@@ -53,13 +52,17 @@
                     // console.log(item)
                     $('ul').append(`<li>${item.holiday}</li>`)
                 });
+                var currentPageObj = {
+                    indexStart:[],
+                    indexEnd:[]
+                }
                 $('ul').click(function(event){
                     // console.log(event)
                     if (event.target.tagName == 'LI'){
                         res.forEach(item => {
                             if(event.target.innerHTML == item.holiday){
                                 // console.log(item.holiday)
-
+                                // currentPageObj = item.tiaoxiu
                                 $('.main').css({
                                     zIndex:50,
                                     opacity:1
@@ -70,27 +73,45 @@
                                 })
                                 // console.log($('.title h1'))
                                 $('.title h1').html(item.holiday)
-                                for(let i of item.date){
-                                    // console.log(i)
+                                $('.title h2').html(item.month)
+                                item.date.forEach((i,index) => {
+                                    // console.log(i,typeof index)
+                                    $('.date').append(`<h3 id="date${index}">${i}</h3>`)
+                                    for(let j of item.holiday_date){
+                                        if (j==i){
+                                            // console.log($(`#date${index}`))
+                                            $(`#date${index}`).css({'color':'red'})
+                                        }
                                     
-                                    $('.date').append(`<h3>${i}</h3>`)
-                                }
+                                    }
+                                    for(let k of item.tiaoxiuStart){
+                                        if(k==i){
+                                            currentPageObj.indexStart.push(index)
+                                        }
+                                    }
+                                    for(let l of item.tiaoxiuEnd){
+                                        if(l==i){
+                                            currentPageObj.indexEnd.push(index)
+                                        }
+                                    }
 
+                                })
                                 
+                                console.log(currentPageObj)
                                     
                             }
                         });  
                         // console.log(!event.target.nextSibling)
-                        if(!event.target.nextSibling){
-                            $('.next').css({display:'none'})   
-                        }else{
-                            $('.next').css({display:'block'})
-                        }
-                        if(!event.target.previousSibling){
-                            $('.last').css({display:'none'})   
-                        }else{
-                            $('.last').css({display:'block'})
-                        }
+                        // if(!event.target.nextSibling){
+                        //     $('.next').css({display:'none'})   
+                        // }else{
+                        //     $('.next').css({display:'block'})
+                        // }
+                        // if(!event.target.previousSibling){
+                        //     $('.last').css({display:'none'})   
+                        // }else{
+                        //     $('.last').css({display:'block'})
+                        // }
                     }
                 })
                     
@@ -107,8 +128,37 @@
                     $('.date').empty()
                 })
                
-                $('.next').click(function(){
+                $('.animate').click(function(){
+                    $('.date h3').css({
+                        'animation':'disappear 1s linear forwards'
+                        // 'opacity':0
+                    })
+                    setTimeout(() => {
+                        $('.date h3').html('|')
+                        $('.date h3').css({
+                            'animation':'appear .5s linear forwards'
+                        })
+                    }, 1000);
                     
+                    // console.log(currentPageObj)
+                    setTimeout(()=>{
+                       for(let m =0;m< currentPageObj.indexStart.length;m++){
+                            let left1 = $(`#date${currentPageObj.indexStart[m]}`).position().left
+                            let left2 = $(`#date${currentPageObj.indexEnd[m]}`).position().left
+                            let top1 = $(`#date${currentPageObj.indexStart[m]}`).position().top
+                            let top2 = $(`#date${currentPageObj.indexEnd[m]}`).position().top
+                            // console.log( $(`#date${currentPageObj.indexStart[m]}`).position().left,$(`#date${currentPageObj.indexStart[m]}`).position().top)
+                            let X= left2-left1
+                            let Y = top1-top2
+                            console.log(left1,left2,X)
+                            $(`#date${currentPageObj.indexStart[m]}`).css({
+                               
+                                "transition":"all 3s",
+                                "transform":`translate(${X}px,${Y}px)`,
+                            })
+                        }
+                    },2000)
+                    // $('.animate').click(none)
                 })
             }
         })
