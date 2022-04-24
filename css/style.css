@@ -72,6 +72,14 @@
 .title .icon-youjiantou{
     font-size: 0.69rem;
 }
+.desc{
+    font-size: 0.5rem;
+    margin: 0.15rem auto;
+    /* text-shadow: #111 0 0 1px; */
+    /* visibility: hidden; */
+    opacity: 0;
+    color:purple;
+}
 .main .weekends{
     display: flex;
     flex-direction: row;
@@ -131,9 +139,9 @@
         
     }
 }
-@keyframes move{
+/* @keyframes move{
 
-}
+} */
 .main .bottom{
     display: flex;
     justify-content: space-around;
@@ -154,3 +162,13 @@
     width: 2rem;
     text-align: center;
 }
+.story{
+    font-size: 0.3rem;
+}
+.factDate{
+    font-size: 0.6rem;
+    color: red;
+    opacity: 0;
+}
+
+

@@ -9,6 +9,8 @@
     <script src="js/jquery-3.6.0.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_3350679_cda191pmwhi.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <script src="js/wow.min.js"></script>
 </head>
 <body>
     <div class="page start">
@@ -21,6 +23,7 @@
             <h1></h1>
             <h2></h2>
         </div>
+        <div class="desc title2">成语：朝三暮四</div>
         <div class="weekends">
             <h3 style="color:#999">日</h3>
             <h3>一</h3>
@@ -35,11 +38,10 @@
             <div class="animate">查看实际休息天数</div>
             <div class="back">返回首页</div>
         </div>
-       
-        <!-- <div class="desc">
-            <h3>成语：朝三暮四</h3>
-            有一年，村子里闹了饥荒，狙公不得不缩减猴子的食粮，但他怕猴子们不高兴，就先和猴子们商量，他说：“从明天开始，我每天早上给你们三颗果子，晚上再给你们四颗，好吗？”猴子们听说他们的食粮减少，都咧嘴露牙的站了起来，表现出非常生气的样子。狙公看了，马上就改口说：“这样好了，我每天早上给你们四颗，晚上再给你们三颗，够吃了吧！”猴子们听说早上己经从三颗变成了四颗，以为食粮已经增加了，都高兴的一起趴在地上，不再闹了。
-        </div> -->
+        <div class="desc factHoliday">实际放假的天数：&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="factDate"></span>天</div>
+        <div class="desc story">
+            &nbsp; &nbsp;&nbsp;&nbsp;有一年，村子里闹了饥荒，狙公不得不缩减猴子的食粮，但他怕猴子们不高兴，就先和猴子们商量，他说：“从明天开始，我每天早上给你们三颗果子，晚上再给你们四颗，好吗？”猴子们听说他们的食粮减少，都咧嘴露牙的站了起来，表现出非常生气的样子。狙公看了，马上就改口说：“这样好了，我每天早上给你们四颗，晚上再给你们三颗，够吃了吧！”猴子们听说早上己经从三颗变成了四颗，以为食粮已经增加了，都高兴的一起趴在地上，不再闹了。
+        </div>
     </div>
     <script>
         
@@ -56,6 +58,10 @@
                     indexStart:[],
                     indexEnd:[]
                 }
+                var factDateIndex = []
+                var animateFlag = true
+                var days = []
+                var holidayDays = []
                 $('ul').click(function(event){
                     // console.log(event)
                     if (event.target.tagName == 'LI'){
@@ -63,6 +69,8 @@
                             if(event.target.innerHTML == item.holiday){
                                 // console.log(item.holiday)
                                 // currentPageObj = item.tiaoxiu
+                                days = item.date
+                                holidayDays = item.holiday_date
                                 $('.main').css({
                                     zIndex:50,
                                     opacity:1
@@ -94,10 +102,15 @@
                                             currentPageObj.indexEnd.push(index)
                                         }
                                     }
+                                    for (let o of item.factDate){
+                                        if (o == i){
+                                            factDateIndex.push(index)
+                                        }
+                                    }
 
                                 })
                                 
-                                console.log(currentPageObj)
+                                // console.log(currentPageObj)
                                     
                             }
                         });  
@@ -126,40 +139,110 @@
                         opacity:0
                     })
                     $('.date').empty()
-                })
-               
-                $('.animate').click(function(){
-                    $('.date h3').css({
-                        'animation':'disappear 1s linear forwards'
-                        // 'opacity':0
+                    $('.desc').css({
+                        'opacity':'0'
                     })
-                    setTimeout(() => {
-                        $('.date h3').html('|')
-                        $('.date h3').css({
-                            'animation':'appear .5s linear forwards'
-                        })
-                    }, 1000);
-                    
-                    // console.log(currentPageObj)
-                    setTimeout(()=>{
-                       for(let m =0;m< currentPageObj.indexStart.length;m++){
-                            let left1 = $(`#date${currentPageObj.indexStart[m]}`).position().left
-                            let left2 = $(`#date${currentPageObj.indexEnd[m]}`).position().left
-                            let top1 = $(`#date${currentPageObj.indexStart[m]}`).position().top
-                            let top2 = $(`#date${currentPageObj.indexEnd[m]}`).position().top
-                            // console.log( $(`#date${currentPageObj.indexStart[m]}`).position().left,$(`#date${currentPageObj.indexStart[m]}`).position().top)
-                            let X= left2-left1
-                            let Y = top1-top2
-                            console.log(left1,left2,X)
-                            $(`#date${currentPageObj.indexStart[m]}`).css({
-                               
-                                "transition":"all 3s",
-                                "transform":`translate(${X}px,${Y}px)`,
-                            })
-                        }
-                    },2000)
-                    // $('.animate').click(none)
+                    factDateIndex=[]
+                    currentPageObj = {
+                        indexStart:[],
+                        indexEnd:[]
+                    }
+                    animateFlag = true
+                    days=[]
+                    holidayDays = []
                 })
+                
+                $('.animate').click(function(){
+                    if (animateFlag){
+                        $('.date h3').css({
+                            'animation':'disappear 1s linear forwards'
+                            // 'opacity':0
+                        })
+                        setTimeout(() => {
+                            $('.date h3').html('|')
+                            $('.date h3').css({
+                                'animation':'appear .5s linear forwards'
+                            })
+                        }, 1000);
+                        
+                        console.log(currentPageObj)
+                        setTimeout(()=>{
+                        for(let m =0;m< currentPageObj.indexStart.length;m++){
+                                $(`#date${currentPageObj.indexStart[m]}`).attr("style","")
+                                let left1 = $(`#date${currentPageObj.indexStart[m]}`).position().left
+                                let left2 = $(`#date${currentPageObj.indexEnd[m]}`).position().left
+                                let top1 = $(`#date${currentPageObj.indexStart[m]}`).position().top
+                                let top2 = $(`#date${currentPageObj.indexEnd[m]}`).position().top
+                                // console.log( $(`#date${currentPageObj.indexStart[m]}`).position().left,$(`#date${currentPageObj.indexStart[m]}`).position().top)
+                                let X= left2-left1
+                                let Y = top2-top1
+                                // console.log(left1,left2,X)
+                                $(`#date${currentPageObj.indexStart[m]}`).css({
+                                    // "transition":"all 2s",
+                                    "transform":`translate(${X}px,${Y}px)`,
+                                    "color":'red',
+                                })
+                            }
+                            // console.log(factDateIndex)
+                            var distance = 0
+                            for(let n of factDateIndex){
+                                
+                                $(`#date${n}`).attr('style','')
+                                let left1 = $(`#date${n}`).position().left
+                                let left2 = $('.factHoliday').position().left
+                                let top1 = $(`#date${n}`).position().top
+                                let top2 = $('.factHoliday').position().top
+                                let X = left2 - left1 + 210 + distance
+                                let Y = top2 - top1  + 15 
+                                $(`#date${n}`).css({
+                                    "color":'red',
+                                    "transform":`translate(${X}px,${Y}px)`,
+                                })
+                                distance = distance + 20
+                                // console.log(distance)
+                            }
+                            $('.desc').css({
+                                'opacity':'1',
+                                'transition':'all 2s'
+                            })
+                            $('.factHoliday').css({
+                                "textDecoration":'none'
+                            })
+                            $('.factDate').html(factDateIndex.length)
+                            $('.factDate').css({
+                                "transition":"all 1s ease 1.5s",
+                                'opacity':'1'
+                            })
+                        },2000)
+                        animateFlag = false
+                        $('.animate').html("点击返回日历")
+                    }else{
+                        animateFlag = true
+                        $('.animate').html("点击查看实际休息天数")
+                        // $('.date').empty()
+                        console.log(days,holidayDays)
+                        for (let p = 0; p<days.length;p++){
+                            $(`#date${p}`).html(days[p])
+                            $(`#date${p}`).attr('style','')
+                            // console.log(holidayDays)
+                            for (q of holidayDays){
+                                if(days[p]==q){
+                                    $(`#date${p}`).css({
+                                        'color':'red'
+                                    })
+                                }
+                            }
+
+                        }
+                        $('.factHoliday').css({
+                            'textDecoration':'line-through'
+                        })
+                        $('.factDate').html('')
+
+                        }
+                    })
+                    
+                
             }
         })
     </script>   
